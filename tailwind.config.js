@@ -7,14 +7,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        cream: '#FAF7F2',
-        beige: '#E8DED0',
-        sand: '#D4C4A8',
-        gold: '#C9A96E',
-        'gold-light': '#EDE0C8',
-        charcoal: '#1C1C1C',
-        muted: '#8A8A8A',
-        'warm-gray': '#F0EDE8',
+        cream: '#070707', // Luxurious deep black body background
+        beige: '#1C1C1C', // Dark divider and border line gray
+        sand: '#AA8E59', // Beautiful metallic sand gold
+        gold: '#D4AF37', // Pure metallic gold accent
+        'gold-light': '#EAE0C8', // Soft cream/gold highlight
+        charcoal: '#F3F4F6', // Readable off-white text color
+        muted: '#9CA3AF', // Muted secondary text gray
+        'warm-gray': '#121212', // Slightly lighter dark background for panels/cards
       },
       fontFamily: {
         serif: ['Cormorant Garamond', 'Georgia', 'serif'],

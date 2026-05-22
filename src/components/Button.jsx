@@ -4,13 +4,13 @@ const Button = ({ children, variant = "primary", onClick, type = "button", class
   // Define style variants
   const variants = {
     primary:
-      "bg-charcoal text-white hover:bg-gold hover:text-white border border-charcoal hover:border-gold",
+      "bg-gold text-black hover:bg-transparent hover:text-gold border border-gold hover:border-gold font-semibold",
     outline:
-      "bg-transparent text-charcoal border border-charcoal hover:bg-charcoal hover:text-white",
+      "bg-transparent text-white border border-white hover:bg-gold hover:text-black hover:border-gold font-medium",
     gold:
-      "bg-gold text-white hover:bg-charcoal border border-gold hover:border-charcoal",
+      "bg-gold text-black hover:bg-black hover:text-gold border border-gold hover:border-gold font-semibold",
     ghost:
-      "bg-transparent text-charcoal hover:text-gold underline underline-offset-4",
+      "bg-transparent text-gold hover:text-gold-light underline underline-offset-4 font-medium",
     whatsapp:
       "bg-green-600 text-white hover:bg-green-700 border border-green-600",
   };

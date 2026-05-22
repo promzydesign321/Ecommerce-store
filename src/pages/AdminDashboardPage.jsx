@@ -48,6 +48,7 @@ const AdminDashboardPage = () => {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchProducts();
   }, []);
 
@@ -152,7 +153,7 @@ const AdminDashboardPage = () => {
 
       if (editingProduct) {
         // Edit Mode
-        const { data, error: updateError } = await supabase
+        const { error: updateError } = await supabase
           .from("products")
           .update(productPayload)
           .eq("id", editingProduct.id)
@@ -161,7 +162,7 @@ const AdminDashboardPage = () => {
         if (updateError) throw updateError;
       } else {
         // Create Mode
-        const { data, error: insertError } = await supabase
+        const { error: insertError } = await supabase
           .from("products")
           .insert([productPayload])
           .select();
@@ -184,37 +185,37 @@ const AdminDashboardPage = () => {
     <AdminLayout>
       {/* Error alert */}
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-6 py-4 rounded-none text-sm tracking-wide mb-6">
+        <div className="bg-red-950/40 border border-red-900/30 text-red-400 px-6 py-4 rounded-none text-sm tracking-wide mb-6">
           ⚠️ {error}
         </div>
       )}
 
       {/* ── Stats Cards ── */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 mb-8">
         {[
           { label: "Total Products", value: loading ? "..." : products.length, icon: "📦" },
           { label: "In Stock", value: loading ? "..." : products.filter((p) => p.in_stock).length, icon: "✅" },
           { label: "Out of Stock", value: loading ? "..." : products.filter((p) => !p.in_stock).length, icon: "⚠️" },
         ].map((stat) => (
-          <div key={stat.label} className="bg-white border border-beige p-6 rounded-sm shadow-sm">
+          <div key={stat.label} className="bg-[#121212] border border-beige p-5 sm:p-6 rounded-sm shadow-sm hover:border-gold/25 transition-all duration-300">
             <p className="text-2xl mb-2">{stat.icon}</p>
-            <p className="text-3xl font-serif font-semibold text-charcoal">{stat.value}</p>
-            <p className="text-xs tracking-widest uppercase text-muted mt-1">{stat.label}</p>
+            <p className="text-3xl font-serif font-semibold text-white">{stat.value}</p>
+            <p className="text-[10px] sm:text-xs tracking-widest uppercase text-muted mt-1 truncate sm:overflow-visible">{stat.label}</p>
           </div>
         ))}
       </div>
 
       {/* ── Products Table ── */}
-      <div className="bg-white border border-beige rounded-sm shadow-sm">
+      <div className="bg-[#121212] border border-beige rounded-sm shadow-sm">
         {/* Table Header */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-beige">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between px-6 py-5 border-b border-beige gap-4">
           <div>
-            <h2 className="font-serif text-xl text-charcoal">All Products</h2>
+            <h2 className="font-serif text-xl text-white">All Products</h2>
             <p className="text-xs text-muted mt-0.5">{loading ? "Loading catalog..." : `${products.length} total products`}</p>
           </div>
           <button
             onClick={openAddModal}
-            className="inline-flex items-center gap-2 bg-charcoal text-white px-5 py-2.5 text-xs tracking-widest uppercase font-medium hover:bg-gold transition-colors duration-300"
+            className="inline-flex items-center justify-center gap-2 bg-gold text-black border border-gold hover:bg-transparent hover:text-gold px-5 py-2.5 text-xs tracking-widest uppercase font-semibold transition-colors duration-300 w-full sm:w-auto rounded-none"
           >
             <span className="text-lg leading-none">+</span>
             Add Product
@@ -233,23 +234,23 @@ const AdminDashboardPage = () => {
               <p className="text-muted text-sm tracking-widest uppercase mb-4">No products found in database</p>
               <button
                 onClick={openAddModal}
-                className="bg-charcoal text-white px-6 py-2.5 text-xs tracking-widest uppercase hover:bg-gold transition-colors"
+                className="bg-gold text-black px-6 py-2.5 text-xs tracking-widest uppercase hover:bg-transparent hover:text-gold border border-gold font-semibold transition-colors duration-300"
               >
                 Add Your First Product
               </button>
             </div>
           ) : (
-            <table className="w-full">
+            <table className="w-full min-w-[750px]">
               <thead className="bg-warm-gray border-b border-beige">
                 <tr>
                   {["Image", "Name", "Category", "Price", "Status", "Actions"].map((col) => (
-                    <th key={col} className="px-6 py-3 text-left text-[10px] tracking-widest uppercase text-muted font-medium">
+                    <th key={col} className="px-6 py-4 text-left text-[10px] tracking-widest uppercase text-muted font-semibold">
                       {col}
                     </th>
                   ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-beige">
+              <tbody className="divide-y divide-beige/80">
                 {products.map((product) => (
                   <tr key={product.id} className="hover:bg-warm-gray/50 transition-colors duration-150">
                     {/* Image */}
@@ -257,14 +258,14 @@ const AdminDashboardPage = () => {
                       <img
                         src={product.image}
                         alt={product.name}
-                        className="w-12 h-14 object-cover rounded-sm bg-warm-gray"
+                        className="w-12 h-14 object-cover rounded-sm bg-warm-gray border border-beige/60"
                       />
                     </td>
                     {/* Name */}
                     <td className="px-6 py-4">
-                      <p className="font-serif text-sm text-charcoal">{product.name}</p>
+                      <p className="font-serif text-sm text-white font-medium">{product.name}</p>
                       {product.badge && (
-                        <span className="inline-block text-[9px] text-white bg-gold tracking-widest uppercase px-1.5 py-0.5 rounded-none mt-1">
+                        <span className="inline-block text-[9px] text-black bg-gold font-semibold tracking-widest uppercase px-1.5 py-0.5 rounded-none mt-1">
                           {product.badge}
                         </span>
                       )}
@@ -272,13 +273,15 @@ const AdminDashboardPage = () => {
                     {/* Category */}
                     <td className="px-6 py-4 text-xs text-muted tracking-wide">{product.category}</td>
                     {/* Price */}
-                    <td className="px-6 py-4 text-sm font-semibold text-charcoal">{formatPrice(product.price)}</td>
+                    <td className="px-6 py-4 text-sm font-semibold text-white">{formatPrice(product.price)}</td>
                     {/* Status */}
                     <td className="px-6 py-4">
-                      <span className={`inline-flex items-center gap-1.5 text-[10px] tracking-widest uppercase font-medium px-2.5 py-1 rounded-full ${
-                        product.in_stock ? "bg-green-100 text-green-700" : "bg-red-100 text-red-500"
+                      <span className={`inline-flex items-center gap-1.5 text-[9px] tracking-widest uppercase font-semibold px-2.5 py-1 rounded-full border ${
+                        product.in_stock
+                          ? "bg-green-950/40 text-green-400 border-green-900/30"
+                          : "bg-red-950/40 text-red-400 border-red-900/30"
                       }`}>
-                        <span className={`w-1.5 h-1.5 rounded-full ${product.in_stock ? "bg-green-500" : "bg-red-400"}`} />
+                        <span className={`w-1.5 h-1.5 rounded-full ${product.in_stock ? "bg-green-500" : "bg-red-500"}`} />
                         {product.in_stock ? "In Stock" : "Out of Stock"}
                       </span>
                     </td>
@@ -287,13 +290,13 @@ const AdminDashboardPage = () => {
                       <div className="flex items-center gap-3">
                         <button
                           onClick={() => openEditModal(product)}
-                          className="text-xs tracking-widest uppercase text-charcoal hover:text-gold transition-colors duration-200 font-medium"
+                          className="text-xs tracking-widest uppercase text-gold hover:text-gold-light transition-colors duration-200 font-semibold"
                         >
                           Edit
                         </button>
                         <button
                           onClick={() => handleDelete(product.id)}
-                          className="text-xs tracking-widest uppercase text-red-400 hover:text-red-600 transition-colors duration-200 font-medium"
+                          className="text-xs tracking-widest uppercase text-red-400 hover:text-red-500 transition-colors duration-200 font-semibold"
                         >
                           Delete
                         </button>
@@ -309,16 +312,16 @@ const AdminDashboardPage = () => {
 
       {/* ── Add/Edit Modal ── */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center px-4 overflow-y-auto py-10">
-          <div className="bg-white w-full max-w-lg shadow-xl rounded-sm">
+        <div className="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 flex items-center justify-center px-4 overflow-y-auto py-10">
+          <div className="bg-[#121212] w-full max-w-lg border border-beige shadow-2xl rounded-sm">
             {/* Modal Header */}
-            <div className="flex items-center justify-between px-8 py-6 border-b border-beige">
-              <h3 className="font-serif text-xl text-charcoal">
+            <div className="flex items-center justify-between px-8 py-6 border-b border-beige/40">
+              <h3 className="font-serif text-xl text-white">
                 {editingProduct ? "Edit Product" : "Add New Product"}
               </h3>
               <button
                 onClick={() => setShowModal(false)}
-                className="text-muted hover:text-charcoal transition-colors"
+                className="text-muted hover:text-white transition-colors"
                 disabled={submitLoading}
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -337,7 +340,7 @@ const AdminDashboardPage = () => {
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
                   placeholder="e.g. Midnight Noir Abaya"
-                  className="w-full border border-beige px-4 py-2.5 text-sm focus:outline-none focus:border-gold transition-colors"
+                  className="w-full bg-[#1A1A1A] text-white border border-beige/40 px-4 py-2.5 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-colors"
                   disabled={submitLoading}
                 />
               </div>
@@ -352,7 +355,7 @@ const AdminDashboardPage = () => {
                     value={form.price}
                     onChange={(e) => setForm({ ...form, price: e.target.value })}
                     placeholder="e.g. 45000"
-                    className="w-full border border-beige px-4 py-2.5 text-sm focus:outline-none focus:border-gold transition-colors"
+                    className="w-full bg-[#1A1A1A] text-white border border-beige/40 px-4 py-2.5 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-colors"
                     disabled={submitLoading}
                   />
                 </div>
@@ -364,7 +367,7 @@ const AdminDashboardPage = () => {
                     required
                     value={form.category}
                     onChange={(e) => setForm({ ...form, category: e.target.value })}
-                    className="w-full border border-beige px-4 py-2.5 text-sm focus:outline-none focus:border-gold transition-colors bg-white"
+                    className="w-full bg-[#1A1A1A] text-white border border-beige/40 px-4 py-2.5 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-colors [&>option]:bg-[#1A1A1A] [&>option]:text-white"
                     disabled={submitLoading}
                   >
                     <option value="">Select Category</option>
@@ -383,7 +386,7 @@ const AdminDashboardPage = () => {
                     value={form.material}
                     onChange={(e) => setForm({ ...form, material: e.target.value })}
                     placeholder="e.g. Soft Chiffon"
-                    className="w-full border border-beige px-4 py-2.5 text-sm focus:outline-none focus:border-gold transition-colors"
+                    className="w-full bg-[#1A1A1A] text-white border border-beige/40 px-4 py-2.5 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-colors"
                     disabled={submitLoading}
                   />
                 </div>
@@ -395,7 +398,7 @@ const AdminDashboardPage = () => {
                     value={form.badge}
                     onChange={(e) => setForm({ ...form, badge: e.target.value })}
                     placeholder="e.g. Best Seller, New"
-                    className="w-full border border-beige px-4 py-2.5 text-sm focus:outline-none focus:border-gold transition-colors"
+                    className="w-full bg-[#1A1A1A] text-white border border-beige/40 px-4 py-2.5 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-colors"
                     disabled={submitLoading}
                   />
                 </div>
@@ -409,7 +412,7 @@ const AdminDashboardPage = () => {
                   value={form.sizes}
                   onChange={(e) => setForm({ ...form, sizes: e.target.value })}
                   placeholder="e.g. S, M, L, XL"
-                  className="w-full border border-beige px-4 py-2.5 text-sm focus:outline-none focus:border-gold transition-colors"
+                  className="w-full bg-[#1A1A1A] text-white border border-beige/40 px-4 py-2.5 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-colors"
                   disabled={submitLoading}
                 />
               </div>
@@ -423,7 +426,7 @@ const AdminDashboardPage = () => {
                   value={form.description}
                   onChange={(e) => setForm({ ...form, description: e.target.value })}
                   placeholder="Describe the product..."
-                  className="w-full border border-beige px-4 py-2.5 text-sm focus:outline-none focus:border-gold transition-colors resize-none"
+                  className="w-full bg-[#1A1A1A] text-white border border-beige/40 px-4 py-2.5 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-colors resize-none"
                   disabled={submitLoading}
                 />
               </div>
@@ -441,7 +444,7 @@ const AdminDashboardPage = () => {
                   accept="image/*"
                   onChange={(e) => setImageFile(e.target.files[0])}
                   required={!editingProduct}
-                  className="w-full border border-beige px-4 py-2 text-sm focus:outline-none focus:border-gold text-muted"
+                  className="w-full bg-[#1A1A1A] text-white border border-beige/40 px-4 py-2 text-sm focus:outline-none focus:border-gold text-muted file:bg-beige/20 file:text-white file:border-none file:px-3 file:py-1 file:mr-3 file:hover:bg-beige/30 file:transition-colors file:cursor-pointer cursor-pointer"
                   disabled={submitLoading}
                 />
               </div>
@@ -456,21 +459,21 @@ const AdminDashboardPage = () => {
                   className="w-4 h-4 accent-gold"
                   disabled={submitLoading}
                 />
-                <label htmlFor="in_stock" className="text-xs tracking-widest uppercase text-charcoal font-medium cursor-pointer">
+                <label htmlFor="in_stock" className="text-xs tracking-widest uppercase text-white font-medium cursor-pointer">
                   Product In Stock / Available
                 </label>
               </div>
 
               {/* Buttons */}
-              <div className="flex gap-4 pt-4 border-t border-beige">
+              <div className="flex gap-4 pt-4 border-t border-beige/40">
                 <button
                   type="submit"
                   disabled={submitLoading}
-                  className="flex-1 bg-charcoal text-white py-3 text-xs tracking-widest uppercase font-medium hover:bg-gold transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="flex-1 bg-gold text-black py-3 text-xs tracking-widest uppercase font-semibold hover:bg-transparent hover:text-gold border border-gold transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   {submitLoading ? (
                     <>
-                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-black"></div>
                       Saving...
                     </>
                   ) : editingProduct ? (
@@ -483,7 +486,7 @@ const AdminDashboardPage = () => {
                   type="button"
                   onClick={() => setShowModal(false)}
                   disabled={submitLoading}
-                  className="flex-1 border border-beige text-charcoal py-3 text-xs tracking-widest uppercase font-medium hover:border-charcoal transition-colors duration-300 disabled:opacity-50"
+                  className="flex-1 border border-beige/40 text-white py-3 text-xs tracking-widest uppercase font-medium hover:border-white transition-colors duration-300 disabled:opacity-50"
                 >
                   Cancel
                 </button>

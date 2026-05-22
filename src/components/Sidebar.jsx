@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 
 // Admin sidebar navigation
-const Sidebar = () => {
+const Sidebar = ({ isOpen, setIsOpen }) => {
   const navigate = useNavigate();
 
   const navItems = [
@@ -44,47 +44,82 @@ const Sidebar = () => {
     },
   ];
 
+  const handleLinkClick = () => {
+    if (setIsOpen) setIsOpen(false);
+  };
+
   return (
-    <aside className="w-64 bg-charcoal text-white flex flex-col min-h-screen">
-      {/* Logo */}
-      <div className="px-6 py-8 border-b border-white/10">
-        <h2 className="font-serif text-2xl tracking-wider text-white">XYZ</h2>
-        <p className="text-[10px] tracking-[0.3em] uppercase text-sand mt-0.5">Admin Panel</p>
-      </div>
+    <>
+      {/* Mobile background backdrop overlay */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/75 z-40 md:hidden backdrop-blur-xs transition-opacity duration-300"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
 
-      {/* Navigation */}
-      <nav className="flex-1 px-4 py-6 space-y-1">
-        {navItems.map((item) => (
-          <NavLink
-            key={item.to}
-            to={item.to}
-            className={({ isActive }) =>
-              `flex items-center gap-3 px-4 py-3 rounded-sm text-sm font-medium transition-all duration-200 ${
-                isActive
-                  ? "bg-gold text-white"
-                  : "text-gray-400 hover:bg-white/5 hover:text-white"
-              }`
-            }
+      <aside
+        className={`
+          fixed inset-y-0 left-0 z-50 w-64 bg-black border-r border-beige text-white flex flex-col min-h-screen
+          transform ${isOpen ? "translate-x-0" : "-translate-x-full"}
+          md:relative md:translate-x-0 transition-transform duration-300 ease-in-out
+        `}
+      >
+        {/* Logo and Mobile Close Button */}
+        <div className="px-6 py-8 border-b border-white/10 flex items-center justify-between">
+          <div>
+            <h2 className="font-serif text-2xl tracking-wider text-white">XYZ</h2>
+            <p className="text-[10px] tracking-[0.3em] uppercase text-sand mt-0.5">Admin Panel</p>
+          </div>
+          <button
+            onClick={() => setIsOpen(false)}
+            className="md:hidden p-1.5 text-gray-400 hover:text-gold transition-colors focus:outline-none"
+            aria-label="Close Sidebar"
           >
-            {item.icon}
-            <span className="tracking-wide">{item.label}</span>
-          </NavLink>
-        ))}
-      </nav>
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
 
-      {/* Logout button at bottom */}
-      <div className="px-4 py-6 border-t border-white/10">
-        <button
-          onClick={() => navigate("/admin/login")}
-          className="flex items-center gap-3 px-4 py-3 w-full text-sm text-gray-400 hover:text-red-400 transition-colors duration-200"
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-          </svg>
-          <span className="tracking-wide">Logout</span>
-        </button>
-      </div>
-    </aside>
+        {/* Navigation */}
+        <nav className="flex-1 px-4 py-6 space-y-1">
+          {navItems.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              onClick={handleLinkClick}
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-4 py-3 rounded-none text-sm font-medium transition-all duration-200 ${
+                  isActive
+                    ? "bg-gold text-black font-semibold"
+                    : "text-gray-400 hover:bg-white/5 hover:text-white"
+                }`
+              }
+            >
+              {item.icon}
+              <span className="tracking-wide">{item.label}</span>
+            </NavLink>
+          ))}
+        </nav>
+
+        {/* Logout button at bottom */}
+        <div className="px-4 py-6 border-t border-white/10">
+          <button
+            onClick={() => {
+              handleLinkClick();
+              navigate("/admin/login");
+            }}
+            className="flex items-center gap-3 px-4 py-3 w-full text-sm text-gray-400 hover:text-red-400 transition-colors duration-200"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+            <span className="tracking-wide">Logout</span>
+          </button>
+        </div>
+      </aside>
+    </>
   );
 };
 

@@ -11,6 +11,21 @@
   body {
     @apply bg-cream text-charcoal font-sans antialiased;
   }
+  ::selection {
+    @apply bg-gold/30 text-gold-light;
+  }
+  /* Custom scrollbar for premium dark aesthetic */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-cream;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-beige hover:bg-gold/40 transition-colors;
+    border-radius: 4px;
+  }
 }
 
 @layer utilities {

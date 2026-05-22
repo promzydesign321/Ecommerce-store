@@ -56,10 +56,10 @@ const ProductsPage = () => {
             <button
               key={filter}
               onClick={() => setActiveFilter(filter)}
-              className={`px-5 py-2 text-xs tracking-widest uppercase font-medium border transition-all duration-200 ${
+              className={`px-5 py-2.5 text-xs tracking-widest uppercase font-medium border transition-all duration-300 ${
                 activeFilter === filter
-                  ? "bg-charcoal text-white border-charcoal"
-                  : "bg-transparent text-charcoal border-beige hover:border-charcoal"
+                  ? "bg-gold text-black border-gold"
+                  : "bg-transparent text-white border-beige hover:border-gold hover:text-gold"
               }`}
             >
               {filter}

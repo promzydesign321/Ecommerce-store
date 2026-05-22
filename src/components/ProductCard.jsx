@@ -6,10 +6,10 @@ const formatPrice = (price) =>
 
 const ProductCard = ({ product }) => {
   return (
-    <div className="group bg-white rounded-sm overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
+    <div className="group bg-warm-gray rounded-sm overflow-hidden border border-beige hover:border-gold/30 shadow-sm hover:shadow-lg transition-all duration-300">
 
       {/* Product Image */}
-      <div className="relative overflow-hidden aspect-[3/4] bg-warm-gray">
+      <div className="relative overflow-hidden aspect-[3/4] bg-cream">
         <img
           src={product.image}
           alt={product.name}
@@ -18,15 +18,15 @@ const ProductCard = ({ product }) => {
 
         {/* Badge */}
         {product.badge && (
-          <span className="absolute top-3 left-3 bg-gold text-white text-[10px] tracking-widest uppercase px-2.5 py-1 font-medium">
+          <span className="absolute top-3 left-3 bg-gold text-black text-[10px] tracking-widest uppercase px-2.5 py-1 font-semibold">
             {product.badge}
           </span>
         )}
 
         {/* Out of stock overlay */}
         {!product.in_stock && (
-          <div className="absolute inset-0 bg-white/60 flex items-center justify-center">
-            <span className="text-xs tracking-widest uppercase text-muted font-medium border border-muted px-4 py-2">
+          <div className="absolute inset-0 bg-black/75 flex items-center justify-center">
+            <span className="text-xs tracking-widest uppercase text-gold font-medium border border-gold/30 px-4 py-2">
               Out of Stock
             </span>
           </div>

@@ -151,7 +151,7 @@ const ProductDetailPage = () => {
                   {product.sizes.map((size) => (
                     <span
                       key={size}
-                      className="border border-beige px-4 py-2 text-xs font-medium text-charcoal tracking-wide hover:border-charcoal transition-colors cursor-pointer"
+                      className="border border-beige px-4 py-2.5 text-xs font-medium text-white tracking-wide hover:border-gold hover:text-gold transition-all duration-300 ease-in-out cursor-pointer"
                     >
                       {size}
                     </span>
@@ -184,7 +184,7 @@ const ProductDetailPage = () => {
             ) : (
               <button
                 disabled
-                className="inline-flex items-center justify-center gap-3 bg-gray-200 text-gray-400 px-8 py-4 text-sm tracking-widest uppercase font-medium cursor-not-allowed w-full sm:w-auto"
+                className="inline-flex items-center justify-center gap-3 bg-neutral-800 text-neutral-500 border border-neutral-700/50 px-8 py-4 text-sm tracking-widest uppercase font-medium cursor-not-allowed w-full sm:w-auto"
               >
                 Currently Unavailable
               </button>

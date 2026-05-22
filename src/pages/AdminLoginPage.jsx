@@ -51,13 +51,13 @@ const AdminLoginPage = () => {
         </div>
 
         {/* Card */}
-        <div className="bg-white border border-beige p-10 shadow-sm">
+        <div className="bg-[#121212] border border-beige p-10 shadow-lg rounded-sm hover:border-gold/25 transition-all duration-300">
           <h2 className="font-serif text-2xl text-charcoal mb-1">Welcome Back</h2>
           <p className="text-xs text-muted tracking-wide mb-8">Sign in to manage your store</p>
 
           {/* Error Message */}
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-none text-xs tracking-wide mb-6">
+            <div className="bg-red-950/40 border border-red-900/30 text-red-400 px-4 py-3 rounded-none text-xs tracking-wide mb-6">
               ⚠️ {error}
             </div>
           )}
@@ -76,7 +76,7 @@ const AdminLoginPage = () => {
                 value={form.email}
                 onChange={handleChange}
                 placeholder="admin@xyzcollection.com"
-                className="w-full border border-beige px-4 py-3 text-sm text-charcoal placeholder-gray-300 focus:outline-none focus:border-gold transition-colors duration-200 bg-cream"
+                className="w-full border border-beige px-4 py-3 text-sm text-charcoal placeholder-gray-600 focus:outline-none focus:border-gold transition-colors duration-200 bg-cream"
                 disabled={loading}
               />
             </div>
@@ -94,7 +94,7 @@ const AdminLoginPage = () => {
                 value={form.password}
                 onChange={handleChange}
                 placeholder="••••••••"
-                className="w-full border border-beige px-4 py-3 text-sm text-charcoal placeholder-gray-300 focus:outline-none focus:border-gold transition-colors duration-200 bg-cream"
+                className="w-full border border-beige px-4 py-3 text-sm text-charcoal placeholder-gray-600 focus:outline-none focus:border-gold transition-colors duration-200 bg-cream"
                 disabled={loading}
               />
             </div>
@@ -103,11 +103,11 @@ const AdminLoginPage = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-charcoal text-white py-4 text-xs tracking-widest uppercase font-medium hover:bg-gold transition-colors duration-300 mt-4 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full bg-gold text-black border border-gold hover:bg-transparent hover:text-gold hover:border-gold py-4 text-xs tracking-widest uppercase font-semibold transition-colors duration-300 mt-4 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-black"></div>
                   Signing In...
                 </>
               ) : (

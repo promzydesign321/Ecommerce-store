@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Button from "./Button";
 
 const HeroSection = () => {
   return (
@@ -29,22 +30,22 @@ const HeroSection = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-4">
-              <Link
-                to="/products"
-                className="inline-flex items-center gap-3 bg-charcoal text-white px-8 py-4 text-xs tracking-widest uppercase font-medium hover:bg-gold transition-colors duration-300"
-              >
-                Shop Collection
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
+              <Link to="/products">
+                <Button variant="primary">
+                  Shop Collection
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </Button>
               </Link>
               <a
                 href="https://wa.me/2349024128360"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-transparent text-charcoal px-8 py-4 text-xs tracking-widest uppercase font-medium border border-beige hover:border-charcoal transition-colors duration-300"
               >
-                Order via WhatsApp
+                <Button variant="outline">
+                  Order via WhatsApp
+                </Button>
               </a>
             </div>
 
@@ -74,7 +75,7 @@ const HeroSection = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-cream/30 to-transparent lg:bg-gradient-to-r lg:from-cream/20 lg:to-transparent" />
 
             {/* Floating card */}
-            <div className="absolute bottom-6 left-6 bg-white/90 backdrop-blur-sm px-5 py-4 shadow-lg">
+            <div className="absolute bottom-6 left-6 bg-black/80 border border-gold/20 backdrop-blur-md px-5 py-4 shadow-lg">
               <p className="text-[10px] tracking-[0.2em] uppercase text-muted">Featured</p>
               <p className="font-serif text-base text-charcoal mt-0.5">Midnight Noir Abaya</p>
               <p className="text-sm font-semibold text-gold mt-1">₦45,000</p>

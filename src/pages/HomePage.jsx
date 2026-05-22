@@ -114,7 +114,7 @@ const HomePage = () => {
       </section>
 
       {/* ── WhatsApp CTA Banner ── */}
-      <section className="bg-gold-light py-16">
+      <section className="bg-gradient-to-br from-[#121212] to-[#1C1C1C] border-y border-gold/10 py-16">
         <div className="max-w-3xl mx-auto px-4 text-center">
           <p className="text-xs tracking-[0.3em] uppercase text-gold font-medium mb-3">Easy Ordering</p>
           <h2 className="font-serif text-3xl md:text-4xl text-charcoal font-light mb-4">
@@ -157,7 +157,7 @@ const HomePage = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((t) => (
-            <div key={t.id} className="bg-white p-8 border border-beige">
+            <div key={t.id} className="bg-warm-gray p-8 border border-beige rounded-sm shadow-sm hover:border-gold/30 transition-all duration-300">
               {/* Stars */}
               <div className="flex gap-1 mb-4">
                 {Array.from({ length: t.rating }).map((_, i) => (
@@ -168,7 +168,7 @@ const HomePage = () => {
               <p className="text-sm text-muted leading-relaxed italic">"{t.comment}"</p>
               {/* Author */}
               <div className="flex items-center gap-3 mt-6">
-                <div className="w-10 h-10 rounded-full bg-gold flex items-center justify-center text-white font-serif text-lg">
+                <div className="w-10 h-10 rounded-full bg-gold flex items-center justify-center text-black font-serif text-lg font-semibold">
                   {t.avatar}
                 </div>
                 <div>
